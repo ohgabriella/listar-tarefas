@@ -16,16 +16,22 @@ export default {
   components: { NovaTarefa, GridTarefas, ProgressoTarefas },
   data() {
     return {
-      tarefas: [
-      ]
+      tarefas: []
     };
   },
   computed: {
     progress() {
       const total = this.tarefas.length;
-      const done = this.tarefas.filter(t => !t.pending).length
-      return Math.round(done/total * 100) || 0;
-
+      const done = this.tarefas.filter(t => !t.pending).length;
+      return Math.round((done / total) * 100) || 0;
+    }
+  },
+  watch: {
+    tarefas: {
+      deep: true,
+      handler() {
+        localStorage.setItem("tarefas", JSON.stringify(this.tarefas));
+      }
     }
   },
   methods: {
@@ -39,12 +45,21 @@ export default {
         });
       }
     },
-    tarefaDeletada(i){
-      this.tarefas.splice(i, 1)
+    tarefaDeletada(i) {
+      this.tarefas.splice(i, 1);
     },
-    statusChange(i){
-      this.tarefas[i].pending = !this.tarefas[i].pending
-    },
+    statusChange(i) {
+      this.tarefas[i].pending = !this.tarefas[i].pending;
+    }
+  },
+  created() {
+    const json = localStorage.getItem("tarefas");
+    const array = JSON.parse(json);
+    if (Array.isArray(array)) {
+      this.tarefas = array;
+    } else {
+      this.tarefas = [];
+    }
   }
 };
 </script>
