@@ -1,0 +1,71 @@
+<template>
+  <div @click="$emit('changeStatus', tarefa)" class="tarefa" :class="stateClass">
+    <span @click.stop="$emit('deletarTarefa', tarefa)" class="close">x</span>
+    <p>{{ tarefa.name }}</p>
+  </div>
+</template>
+<script>
+export default {
+  props: {
+    tarefa: { type: Object, required: true }
+  },
+  computed: {
+    stateClass() {
+      return {
+        pending: this.tarefa.pending,
+        done: !this.tarefa.pending
+      };
+    }
+  },
+  methods: {}
+};
+</script>
+<style scoped>
+.tarefa {
+  position: relative;
+  box-sizing: border-box;
+  width: 350px;
+  height: 150px;
+  padding: 20px;
+  border-radius: 8px;
+  font-size: 1.5rem;
+  font-weight: 300;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pending {
+  border-left: 12px solid #b73229;
+  background-color: brown;
+}
+
+.done {
+  color: #ddd;
+  border-left: 12px solid #0a8f08;
+  background-color: #4caf50;
+  text-decoration: line-through;
+}
+
+.pending .close {
+  background-color: #b73229;
+}
+
+.done .close {
+  background-color: green;
+}
+
+.close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+}
+</style>
