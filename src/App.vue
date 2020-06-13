@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <h1>Tarefas</h1>
+    <ProgressoTarefas :progress="progress" />
     <NovaTarefa @tarefaAdicionada="addTarefa"></NovaTarefa>
     <GridTarefas @deletarTarefa="tarefaDeletada" @changeStatus="statusChange" :tarefas="tarefas" />
   </div>
@@ -9,14 +10,23 @@
 <script>
 import NovaTarefa from "./components/NovaTarefa";
 import GridTarefas from "./components/GridTarefas";
+import ProgressoTarefas from "./components/ProgressoTarefas";
 
 export default {
-  components: { NovaTarefa, GridTarefas },
+  components: { NovaTarefa, GridTarefas, ProgressoTarefas },
   data() {
     return {
       tarefas: [
       ]
     };
+  },
+  computed: {
+    progress() {
+      const total = this.tarefas.length;
+      const done = this.tarefas.filter(t => !t.pending).length
+      return Math.round(done/total * 100) || 0;
+
+    }
   },
   methods: {
     addTarefa(tarefa) {
@@ -34,7 +44,7 @@ export default {
     },
     statusChange(i){
       this.tarefas[i].pending = !this.tarefas[i].pending
-    }
+    },
   }
 };
 </script>
@@ -60,5 +70,4 @@ body {
   font-weight: 300;
   font-size: 3rem;
 }
-
 </style>
