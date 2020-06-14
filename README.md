@@ -4,7 +4,7 @@
 
 Projeto realizado para o curso de VueJs da Udemy. Nesse curso aprendemos como esse framework funciona e como podemos fazer projetos incríveis. 
 
-O link do curso é esse aqui -> https://www.udemy.com/course/vue-js-completo/
+O link do curso é esse aqui -> [VueJs2](https://www.udemy.com/course/vue-js-completo/)
 
 E abaixo estão alguns passos para executar o projeto localmente. 
 
